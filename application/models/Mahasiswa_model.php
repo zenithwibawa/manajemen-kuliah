@@ -2,17 +2,16 @@
 
 use GuzzleHttp\Client;
 
-class Auth_model extends CI_Model{
+class Mahasiswa_model extends CI_Model{
     
-    public function getLoginAPI($email, $password){
+    public function getMahasiswaDataAPI($email){
         $client = new Client();
-        $response = $client->request('GET', 'http://localhost/server-manajemen-kuliah/auth/login', [
+        $response = $client->request('GET', 'http://localhost/server-manajemen-kuliah/mahasiswa/userdata', [
             'allow_redirects' => true,
             'timeout' => 2000,
             'http_errors' => false,
             'query' => [
                 'email' => $email,
-                'password' => $password
             ]
         ]);
         return json_decode($response->getBody()->getContents(), true);

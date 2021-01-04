@@ -9,12 +9,12 @@ class Auth extends CI_Controller {
 		$this->load->model('Auth_model');
 	}
 
-	public function index(){
+	public function index(){ //login
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 		if ($this->form_validation->run() == false){
-			$data['title'] = 'Sistem Manajemen | Login';
-			$this->load->view('template/auth_header', $data);
+			$title['string'] = 'Sistem Manajemen | Login';
+			$this->load->view('template/auth_header', $title);
 			$this->load->view('auth/login');
 			$this->load->view('template/auth_footer');
 		}
@@ -22,15 +22,26 @@ class Auth extends CI_Controller {
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
-			$user = $this->Auth_model->getUserAPI($email, $password);
-			if ($user['status'] == true){
-				$this->session->set_userdata($user['data']);
-				redirect('user');
+			$login = $this->Auth_model->getLoginAPI($email, $password);
+			if ($login['status'] == true){ // login success
+				$this->session->set_userdata($login['data']);
+				if ($login['data']['role'] == 'Admin') redirect('admin');
+				else if ($login['data']['role'] == 'Operator') redirect('operator');
+				else redirect('mahasiswa');
 			}
-			else {
-				echo 'email / password salah';
+			else { // error
+				$this->session->set_flashdata('email', $email);
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">'.$login['message'].'</div>');
+				redirect('auth');
 			}
 		}
+	}
+
+	public function logout(){
+		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('role');
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Logged out</div>');
+		redirect('auth');
 	}
 
 	/*public function register(){

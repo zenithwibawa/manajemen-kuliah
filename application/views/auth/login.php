@@ -10,7 +10,9 @@
 
       <form action="<?= base_url('auth'); ?>" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email" value="<?= set_value('email'); ?>">
+          <input type="email" class="form-control" placeholder="Email" name="email" value="<?php if ($this->session->flashdata('email') != ""){
+                                                                                                    echo $this->session->flashdata('email');
+                                                                                                 } else echo set_value('email'); ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
