@@ -10,6 +10,9 @@ class Auth extends CI_Controller {
 	}
 
 	public function index(){ //login
+		if ($this->session->userdata('email')){ //if already logged in but try to access login page
+            redirect(strtolower($this->session->userdata('role')));
+        }
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 		if ($this->form_validation->run() == false){
@@ -35,6 +38,11 @@ class Auth extends CI_Controller {
 				redirect('auth');
 			}
 		}
+	}
+
+	public function forbidden(){
+		$title['string'] = 'Access Forbidden';
+		$this->load->view('auth/forbidden', $title);
 	}
 
 	public function logout(){

@@ -5,7 +5,9 @@ class Operator extends CI_Controller {
 
     public function __construct(){
 		parent::__construct();
-		$this->load->model('Operator_model');
+    $this->load->model('Operator_model');
+    $this->load->helper('Access');
+		login_access();
     }
     
     public function index(){
