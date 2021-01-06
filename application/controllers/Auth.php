@@ -10,9 +10,6 @@ class Auth extends CI_Controller {
 	}
 
 	public function index(){ //login
-		if ($this->session->userdata('email')){ //if already logged in but try to access login page
-            redirect(strtolower($this->session->userdata('role')));
-        }
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 		if ($this->form_validation->run() == false){
@@ -28,9 +25,7 @@ class Auth extends CI_Controller {
 			$login = $this->Auth_model->getLoginAPI($email, $password);
 			if ($login['status'] == true){ // login success
 				$this->session->set_userdata($login['data']);
-				if ($login['data']['role'] == 'Admin') redirect('admin');
-				else if ($login['data']['role'] == 'Operator') redirect('operator');
-				else redirect('mahasiswa');
+				redirect(strtolower($login['data']['role']));
 			}
 			else { // error
 				$this->session->set_flashdata('email', $email);
