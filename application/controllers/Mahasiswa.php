@@ -12,11 +12,11 @@ class Mahasiswa extends CI_Controller {
 
   public function index(){
     $title['string'] = 'Dashboard | Mahasiswa';
-    $data['user'] = $this->Mahasiswa_model->getMahasiswaDataAPI($this->session->userdata('email'));
+    $sidebar['user'] = $this->Mahasiswa_model->getMahasiswaDataAPI($this->session->userdata('email'));
     
     $this->load->view('template/header', $title);
     $this->load->view('template/navbar');
-    $this->load->view('template/sidebar_mahasiswa', $data);
+    $this->load->view('template/sidebar_mahasiswa', $sidebar);
     $this->load->view('mahasiswa/dashboard');
     $this->load->view('template/footer');
   }

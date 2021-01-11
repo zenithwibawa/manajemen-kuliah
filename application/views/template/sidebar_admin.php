@@ -27,15 +27,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url('admin'); ?>" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
           </li>
           
           <li class="nav-header">ADMINISTRATION</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview <?php if($this->uri->segment(2)=='manajemen_operator' || $this->uri->segment(2)=='manajemen_mahasiswa') echo 'menu-open'; ?>">
+            <a href="#" class="nav-link <?php if($this->uri->segment(2)=='manajemen_operator' || $this->uri->segment(2)=='manajemen_mahasiswa') echo 'active'; ?>">
               <i class="nav-icon fas fa-user-friends"></i>
               <p>
                 User
@@ -44,7 +44,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../mailbox/mailbox.html" class="nav-link">
+                <a href="<?= base_url('admin/manajemen_operator'); ?>" class="nav-link <?php if($this->uri->segment(2)=='manajemen_operator') echo 'active'; ?>">
                   <i class="fas fa-user-tie nav-icon"></i>
                   <p>Operator</p>
                 </a>
@@ -63,7 +63,6 @@
               <p>Department</p>
             </a>
           </li>
-
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-graduation-cap"></i>

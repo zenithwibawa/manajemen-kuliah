@@ -12,11 +12,11 @@ class Operator extends CI_Controller {
 
   public function index(){
     $title['string'] = 'Dashboard | Operator';
-    $data['user'] = $this->Operator_model->getOperatorDataAPI($this->session->userdata('email'));
+    $sidebar['user'] = $this->Operator_model->getOperatorDataAPI($this->session->userdata('email'));
 
     $this->load->view('template/header', $title);
     $this->load->view('template/navbar');
-    $this->load->view('template/sidebar_operator', $data);
+    $this->load->view('template/sidebar_operator', $sidebar);
     $this->load->view('operator/dashboard');
     $this->load->view('template/footer');
   }
